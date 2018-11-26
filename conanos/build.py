@@ -131,6 +131,28 @@ def Main(name,pure_c=True):
     
     builder.run()
 
+def pkgconfig_adaption(conanfile,pkgconfig_folder='~pkgconfig'):
+
+    pkgconfigd=os.path.abspath(pkgconfig_folder)
+    requires = conanfile.requires
+    for (name,reference) in requires.items():
+        rootd = conanfile.deps_cpp_info[name].rootpath
+        pcd = os.path.join(rootd,'lib/pkgconfig')
+        for name in os.listdir(pcd):
+            pcfile=os.path.join(pcd,name) 
+            if name.endswith('.pc') and os.path.isfile(pcfile) :
+                filename = os.path.join(pkgconfigd,name)
+                if not os.path.isdir(pkgconfigd):
+                    os.makedirs(pkgconfigd)
+                shutil.copy(pcfile, filename)
+                tools.replace_prefix_in_pc_file(filename,rootd)
+                tools.out.info('%s ->%s'%(name,filename))
+        
+
+
+
+
+
 def config_scheme(conanfile):
     CONANOS_SCHEME = os.environ.get('CONANOS_SCHEME')
     if not CONANOS_SCHEME:
