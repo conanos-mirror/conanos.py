@@ -145,7 +145,7 @@ def pkgconfig_adaption(conanfile,pkgconfig_folder='~pkgconfig'):
                 if not os.path.isdir(pkgconfigd):
                     os.makedirs(pkgconfigd)
                 shutil.copy(pcfile, filename)
-                tools.replace_prefix_in_pc_file(filename,rootd)
+                tools.replace_prefix_in_pc_file(filename,rootd.replace('\\','/'))
                 tools.out.info('%s ->%s'%(name,filename))
         
 
