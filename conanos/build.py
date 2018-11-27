@@ -137,7 +137,9 @@ def pkgconfig_adaption(conanfile,pkgconfig_folder='~pkgconfig'):
     requires = conanfile.requires
     for (name,reference) in requires.items():
         rootd = conanfile.deps_cpp_info[name].rootpath
-        pcd = os.path.join(rootd,'lib/pkgconfig')
+        pcd = os.path.join(rootd,'lib/pkgconfig').replace('\\','/')
+        if not os.path.isdir(pcd):
+            continue
         for name in os.listdir(pcd):
             pcfile=os.path.join(pcd,name) 
             if name.endswith('.pc') and os.path.isfile(pcfile) :
