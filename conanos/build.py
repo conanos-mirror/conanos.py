@@ -126,7 +126,8 @@ def Main(name,pure_c=True):
         if os.path.exists('docker_entry_script.sh'):
             docker_entry_script +=' && /bin/bash docker_entry_script.sh %s %s %s'%(compiler,version,arch)
     
-        
+        print("---------------------------------")
+        print(docker_entry_script)
     builder = ConanMultiPackager(docker_entry_script=docker_entry_script)
     builder.add_common_builds(pure_c=pure_c)
 
