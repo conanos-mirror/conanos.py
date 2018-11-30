@@ -110,10 +110,13 @@ def Main(name,pure_c=True):
 
         CONANOS_SCHEME      = os.environ.get("CONANOS_SCHEME")
         CONANOS_SCHEME_REPO = os.environ.get("CONANOS_SCHEME_REPO")
+        CONANOS_PIP_URL     = os.environ.get("CONANOS_PIP_URL")
 
-        docker_entry_script += "pip install conan --upgrade"
-        docker_entry_script += " && pip install conan_package_tools"
-        docker_entry_script += " && pip install conanos --upgrade"
+        if CONANOS_PIP_URL:
+            docker_entry_script += " pip install %s"%CONANOS_PIP_URL
+        else:
+            docker_entry_script += " pip install conanos"
+
 
         if CONANOS_SCHEME:
             docker_entry_script += " && export CONANOS_SCHEME=%s"%CONANOS_SCHEME

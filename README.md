@@ -69,7 +69,13 @@ For example, if you want to install ninja for build in docker, you can write the
 
 please ref project https://github.com/conanos/libffi
 
-in docker, conanos auto inatall conanos python package, so you do not need add conanos installation command in  docker_entry_script.sh.
+in docker, conanos auto inatall conanos python package, so you do not need add conanos installation command in  docker_entry_script.sh. But if you want the docker install the conanos that you specified you can set enviroment var CONANOS_PIP_URL for example
+
+``` sh
+   export CONANOS_PIP_URL=https://github.om/conanos/conanos.py@0.5
+```
+if so, the docker will install conanos python package form the github brach 0.5
+
 
 
 ## package config file (.pc)
